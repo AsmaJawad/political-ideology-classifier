@@ -1,0 +1,5 @@
+venv/
+raw_data/
+processed_data/
+# Exclude the git history
+.git

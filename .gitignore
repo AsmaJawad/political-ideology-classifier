@@ -205,3 +205,11 @@ cython_debug/
 marimo/_static/
 marimo/_lsp/
 __marimo__/
+
+# --- PROJECT-SPECIFIC DATA SCIENCE EXCLUSIONS ---
+# Raw and Processed Data Files (Very large, must not be committed)
+raw_data/
+processed_data/
+
+# Saved Models (Binary files that should not be committed)
+models/
