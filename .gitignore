@@ -210,6 +210,7 @@ __marimo__/
 # Raw and Processed Data Files (Very large, must not be committed)
 raw_data/
 processed_data/
+*.csv
 
 # Saved Models (Binary files that should not be committed)
 models/
