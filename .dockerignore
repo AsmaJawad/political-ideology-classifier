@@ -1,5 +1,8 @@
 venv/
 raw_data/
 processed_data/
-# Exclude the git history
 .git
+__pycache__/
+models/
+.ipynb_checkpoints/
+*.csv
