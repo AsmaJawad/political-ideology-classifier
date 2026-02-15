@@ -7,3 +7,15 @@ This project analyzes the 2023-24 Pew Research Center Religious Landscape Study 
 - Statistical Integrity: Integrated survey_weights into the model's .fit() procedure to ensure results remain representative of the U.S. population.Current 
 ## Findings:
 The initial model achieves an accuracy of 44% across 5 classes. Feature importance analysis reveals that religious attendance is the primary driver of the model's logic, though it currently faces a "Centrist Magnet" challenge where Liberals and Conservatives are often misclassified as Moderates. 
+## Graphs:
+<p align="center">
+  <img src="reports/rf_confusion_matrix.png" width="600" title="Feature Importance Plot">
+  <br>
+  <em>Figure 2: Analysis of model performance and accuracy.</em>
+</p>
+
+<p align="center">
+  <img src="reports/feature_importance.png" width="600" title="Feature Importance Plot">
+  <br>
+  <em>Figure 1: Analysis of predictive features for political ideology.</em>
+</p>
