@@ -17,20 +17,14 @@ def clean_data(df):
     features_map = {
         'IDEO': 'political_ideology',
         'WEIGHT': 'feature_weight',
-        'BIRTHHALFDECADE': 'birth_cohort',
         'RACECMB': 'ethnicity',
         'GENDER': 'gender',
         'EDUCREC': 'education_level',
-        'FAMILY': 'family_religion',
         'RELPER': 'religiosity',
-        'ATTNDPERRLS': 'service_in_person_attendance',
-        'ATTNDONRLS': 'service_online_attendance',
         'SCIMPACT': 'science_impact',
         'RELIMPACT': 'religion_impact',
         'SCRLCON1': 'science_vs_religion',
-        'FRMREL2': 'childhood_religion',
-        'LIFEDIR': 'religiosity_change',
-        'SPREL2': 'spouse_religion'
+        'LIFEDIR': 'religiosity_change'
     }
 
     df = df[list(features_map.keys())].copy()
@@ -51,15 +45,15 @@ def clean_data(df):
 
     return df
 
-# if __name__ == "__main__":
-#     MY_FILE = "2023-24 RLS Public Use File Feb 19.csv" 
+if __name__ == "__main__":
+    MY_FILE = "2023-24 RLS Public Use File Feb 19.csv" 
     
-#     # 2. load the data
-#     raw_df = load_data(MY_FILE)
+    # 2. load the data
+    raw_df = load_data(MY_FILE)
     
-#     # 3. clean it
-#     if not raw_df.empty:
-#         cleaned_df = clean_data(raw_df)
-#         print(f"Original Rows: {len(raw_df)}")
-#         print(f"Cleaned Rows:  {len(cleaned_df)}")
-#         print(f"Columns:       {len(cleaned_df.columns)}")
+    # 3. clean it
+    if not raw_df.empty:
+        cleaned_df = clean_data(raw_df)
+        print(f"Original Rows: {len(raw_df)}")
+        print(f"Cleaned Rows:  {len(cleaned_df)}")
+        print(f"Columns:       {len(cleaned_df.columns)}")

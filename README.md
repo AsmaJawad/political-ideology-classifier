@@ -21,27 +21,37 @@ Due to the dataset's large size, I hid it from the public repository. To run thi
 ### Run the Pipeline:
 ```python src/training.py``` 
 
-## Current Findings
-The initial model achieves an accuracy of 44% across 5 classes. Feature importance analysis reveals that religious attendance is the primary driver of the model's logic, though it currently faces a "Centrist Magnet" challenge where Liberals and Conservatives are often misclassified as Moderates.
+## Updated Progress (2/21/2026)
+The model currently achieves 44% accuracy across 5 classes. Recent iterations successfully addressed the initial "Centrist Magnet" issue by implementing:
+
+  - Dampened Class Weighting: Applied custom weights to fringe classes (Very Liberal/Very Conservative) to counter-balance the higher volume of Moderate respondents.
+  - Native Categorical Support: Leveraged enable_categorical=True to treat demographic variables as distinct groups rather than arbitrary integers, improving the model's ability to find non-linear political signals.
+  - Missing Value Signaling: Standardized survey "skips" as a unique "Missing" category, allowing the model to learn from non-responses which frequently correlate with moderate or centrist viewpoints.
 
 ## Future Plans
-Currently, I am working on implementing the following:
-1. Addressing the centrist magnet issue to enhance model accuracy.
-3. Containerizing the repository for easier replication of the model.
-4. Freezing trained model using the joblib Python library.
-5. Creating an interactive website for an in depth analysis of the relationship between religious and political affiliation amongst the US population. For easier implementation of this step, I plan to use Flask framework and Bootstrap for frontend development.
-6. Deployment!! :partying_face:
+- Feature Engineering: Implementing "Interaction Features" (e.g., combining ethnicity and denomination) to capture more nuanced demographic clusters.
+- Hyperparameter Tuning: Running a cross-validated grid search to optimize max_depth and n_estimators for better F1-score balance.
+- Containerization: Wrapping the repository in Docker for easier environment replication.
+- Model Serialization: Freezing the trained model using joblib for deployment.
+- Interactive Dashboard: Developing a Flask and Bootstrap web application to allow users to explore the relationship between religious traits and political outcomes.
+- Deployment: Hosting the final application for public use.
 
 ## Graphs
 
 <p align="center">
-  <img src="reports/rf_confusion_matrix.png" width="600" title="Feature Importance Plot">
+  <img src="reports/model_stats_feb_21.png" width="600" title="Model Performance">
   <br>
-  <em>Figure 1: Analysis of model performance and accuracy.</em>
+  <em>Figure 1: Current model performance statistics.</em>
 </p>
 
 <p align="center">
-  <img src="reports/feature_importance.png" width="600" title="Feature Importance Plot">
+  <img src="reports/rf_confusion_matrix_feb_21.png" width="600" title="Confusion Matrix Plot">
   <br>
-  <em>Figure 2: Analysis of predictive features for political ideology.</em>
+  <em>Figure 2: Analysis of model performance and accuracy.</em>
+</p>
+
+<p align="center">
+  <img src="reports/feature_importance_feb_21.png" width="600" title="Feature Importance Plot">
+  <br>
+  <em>Figure 3: Analysis of predictive features for political ideology.</em>
 </p>

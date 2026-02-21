@@ -1,5 +1,7 @@
 import pandas as pd
+import numpy as np
 from xgboost import XGBRFClassifier
+from sklearn.utils import class_weight
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import classification_report, confusion_matrix, ConfusionMatrixDisplay
 import matplotlib.pyplot as plt
@@ -35,30 +37,47 @@ def train_model():
     #define target class, features, and weights from the dataset
     x = df.drop(columns=['target_y', 'feature_weight'])
     y = df['target_y']
-    weights = df['feature_weight']
-
+    
     #encode columns to Panda's categorial type -> helps xgboost handle Nan vals
     for col in x.columns:
-        x[col] = x[col].astype('category').cat.codes
-
+        x[col] = x[col].fillna("Missing").astype(str).astype('category')
+    
     #split the dataset between training and testing
-    x_train, x_test, y_train, y_test, w_train, w_test = train_test_split(
-        x, y, weights, test_size=0.2, random_state=42
+    x_train, x_test, y_train, y_test = train_test_split(
+        x, y, test_size=0.2, random_state=42
         )
+
+    #calculate class counts
+    counts = y_train.value_counts().to_dict()
+    total = sum(counts.values())
+    num_classes = len(counts)
+
+    #calculate weights based on sample size for each class
+    #add dampner to reduce model aggressiveness
+    def calc_new_weight(count):
+        standard_weight = total / (num_classes * count)
+        return 1 + (standard_weight - 1) * 0.45
+    
+    new_weights = {k: calc_new_weight(v) for k, v in counts.items()}
+    feature_weight = np.array([new_weights[t] for t in y_train])
+
 
     #configure xgboost for random forest ML model implementation
     rf_model = XGBRFClassifier(
-        n_estimators=1,
-        num_parallel_tree=100,
+        n_estimators=100,
+        max_depth=6,
+        enable_categorical=True,
+        tree_method='hist',
+        max_cat_to_onehot=5,
         subsample=0.8,
         colsample_bynode=0.8,
         random_state=42,
-        use_label_encoder=False,
+        n_jobs=-1,
         eval_metric='mlogloss'
     )
 
     #model fitting
-    rf_model.fit(x_train, y_train, sample_weight=w_train)
+    rf_model.fit(x_train, y_train, sample_weight=feature_weight)
     y_pred = rf_model.predict(x_test)
     
     #plot confusion matrix for model performance analysis
