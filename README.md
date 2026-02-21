@@ -45,7 +45,7 @@ The model currently achieves 44% accuracy across 5 classes. Recent iterations su
 </p>
 
 <p align="center">
-  <img src="reports/rf_confusion_matrix_feb_21.png" width="600" title="Confusion Matrix Plot">
+  <img src="reports/confusion_matrix_feb_21.png" width="600" title="Confusion Matrix Plot">
   <br>
   <em>Figure 2: Analysis of model performance and accuracy.</em>
 </p>
